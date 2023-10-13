@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>positioning</title>
+    <style>
+        .relative, .absolute {
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+            background-color: lightcoral;
+        }
+        .relative {
+            background-color: lightgreen;
+            position: relative; /* 현위치 기준으로 이동 */
+            left: 100px;
+            top: 100px;
+        }
+        .absolute {
+            position: absolute;
+            left: 50px;
+            top: 50px;
+        }
+        .absolute:nth-of-type(2) {
+            left: 100px;
+            top: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="relative"> relative#1 </div>
+    <div class="absolute"> absolute#1 </div>
+    <div class="relative"> relative#2 </div>
+    <div class="absolute"> absolute#2 </div>
+</body>
+</html>

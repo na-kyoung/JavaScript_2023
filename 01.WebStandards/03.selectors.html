@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 선택자 (selectors) </title>
+    
+    <style>
+        ul#list {
+            list-style-type: none;
+            padding: 0;
+        }
+        ul#list > li {
+            outline: 1px solid lightcoral;
+            height: 2rem; /* rem - root em / 1em = 16px */
+            line-height: 2rem;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <ul id="list">
+        <li id="first"> 첫번째 </li>
+        <li> 두번째 </li>
+        <li class="box"> 세번째 </li>
+        <li> 네번째 </li>
+        <li class="box"> 다섯번째 </li>
+    </ul>
+    <script>
+        // 이벤트 - trigger(이벤트 발생) + handler(이벤트 내용)
+        // 대상 + trigger + handler
+
+        // <li> 첫번째 클릭시 배경색 변경
+        document.querySelector('#first').onclick =
+        function(){
+            //console.log(this);
+            this.style.backgroundColor = 'lightblue';
+        }
+
+        //<ul> 클릭시 모든 <li> 배경색 변경
+        const ul = document.querySelector('#list');
+        ul.onclick = function(){
+            // console.log(ul.children);
+            for(let list of ul.children){
+                // console.log(list);
+                list.style.backgroundColor = 'lightcoral';
+            }
+        }
+        
+    </script>
+</body>
+</html>
