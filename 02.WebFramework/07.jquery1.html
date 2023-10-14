@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box {
+            width:100px;
+            height: 100px;
+            background-color: lightcoral;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        // 대상 + 이벤트 트리거 + 이벤트 처리기(핸들러)
+        // 1. 기본 JS - div display
+        /*
+        document.querySelector('#box').onclick = function(){
+            //document.querySelector('#box').style.display = 'none';
+            // this = document.querySelector('#box')
+            console.log(this);
+            this.style.display = 'none';
+        }
+        */
+
+        // 2. jQuery - Hide - hide()
+        /*
+        $('#box').click( function(){
+            $(this).hide();
+        });
+        */
+
+        // 3. jQuery - Hide - hide()
+        /*
+        $('#box').on('click', function(){
+            $(this).hide();
+        });
+        */
+
+        // 4. jQuery - Hide - hide(),show()
+        /*
+        $('#box').on('click', function(){
+            $(this).hide(1000, function(){
+                $(this).show();
+            });
+        });
+        */
+
+        // 5. jQuery - Fading - fadeOut(),fadeIn()
+        /*
+        $('#box').on('click', function(){
+            $(this).fadeOut(1000, function(){
+                $(this).fadeIn();
+            });
+        });
+        */
+
+        // 6. jQuery - Sliding - slideUp(),slideDown()
+        $('#box').on('click', function(){
+            $(this).slideUp(1000, function(){
+                $(this).slideDown();
+            });
+        });
+    </script>
+</body>
+</html>
