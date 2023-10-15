@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>Kakao 지도 시작하기</title>
+	<style>
+		body { margin: 0;}
+		#map {
+			height: 100vh; /* vh - viewport height */
+		}
+	</style>
+</head>
+<body>
+	<div id="map"></div>
+	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f2c486ffcec57960d00f4d031be8e7fe"></script>
+	<script>
+		//const container = document.getElementById('map');
+		const container = document.querySelector('#map');
+		let options = {
+            // 지도 중심 LatLng (위도latitude, 경도longitude)
+			center: new kakao.maps.LatLng(37.558423, 127.049037),
+			// 1 ~ 14
+            level: 3
+		};
+
+		const map = new kakao.maps.Map(container, options);
+	</script>
+</body>
+</html>

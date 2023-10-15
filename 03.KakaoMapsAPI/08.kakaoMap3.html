@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>Kakao 지도 시작하기</title>
+	<!-- bootstrap -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+	<style>
+		body { margin: 0;}
+		#map {
+			height: 100vh; /* vh - viewport height */
+		}
+		ul.zoom {
+			/* outline: 3px solid red; */
+			position: absolute;
+			top: 0;
+			right: 20px;
+			z-index: 999;
+			list-style-type: none;
+			padding: 0;
+		}
+		ul.zoom > li {
+			/* outline: 3px solid blue; */
+			width: 50px;
+			height: 50px;
+			line-height: 40px;
+			text-align: center;
+			font-size: 2rem;
+			background-color: rgba(0,0,0,.6);
+			color: white;
+			margin: 10px 0;
+			border-radius: 10px;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<div id="map">
+		<ul class="zoom">
+			<li class="bi bi-plus-lg"></li>
+			<li class="bi bi-dash-lg"></li>
+		</ul>
+	</div>
+	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f2c486ffcec57960d00f4d031be8e7fe"></script>
+	<script>
+		//const container = document.getElementById('map');
+		const container = document.querySelector('#map');
+		let options = {
+            // 지도 중심 LatLng (위도latitude, 경도longitude)
+			center: new kakao.maps.LatLng(37.558423, 127.049037),
+			// 1 ~ 14
+            level: 3
+		};
+
+		const map = new kakao.maps.Map(container, options);
+
+		// 1. 지도에 컨트롤 올리기
+		// 지도타입 컨트롤 (일반 지도, 스카이뷰)
+		var mapTypeControl = new kakao.maps.MapTypeControl();
+		map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPLEFT);
+		// 줌 컨트롤
+		var zoomControl = new kakao.maps.ZoomControl();
+		map.addControl(zoomControl, kakao.maps.ControlPosition.LEFT);
+
+		// 2. 교통정보 표시 Overlay
+		map.addOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC);
+	</script>
+</body>
+</html>
