@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <button type="button" class="btn btn-primary"> 데이터 가져오기 </button>
+            </div>
+            <div class="col-8"></div>
+        </div>
+    </div>
+    <!-- Google CDN / jQuery 3.X 스니펫 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+
+        $('.btn').click(function(){
+            $.ajax({
+                url: 'https://jsonplaceholder.org/users/1',
+                dataType: 'json'
+            }).done(function(data){
+                // console.log(data);
+                console.log(`${data.firstname} ${data.lastname}`); // 이름 가져오기
+                console.log(`${data.login.username}`);
+            });
+        })
+    </script>
+</body>
+</html>

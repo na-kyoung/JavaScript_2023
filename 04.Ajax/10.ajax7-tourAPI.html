@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <input type="text" name="keyword" class="form-control" placeholder="입력 후 enter" />
+            </div>
+            <div class="col-8"></div>
+        </div>
+    </div>
+    <!-- Google CDN / jQuery 3.X 스니펫 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+
+        $('input[name=keyword]').keydown(function(evt){
+            if(evt.keyCode == 13){ // enter
+                console.log($(this).val());
+                const keyword = $(this).val();
+                $(this).val(''); // 입력창 초기화
+
+                // keyword에 맞는 데이터 불러오기
+                $.ajax({
+                    url: 'http://apis.data.go.kr/B551011/KorService1/searchKeyword1',
+                    dataType: 'xml',
+                    method: 'get',
+                    data: {
+                        // 인증키 Decoding key (인코딩 전이기 때문)
+                        'serviceKey': 'gocqKzIcMMuHAnJW3AGWKPneEWXH2AUa1irqELfP8KFdJVczPyzugvVvLw+tdAgySOjjfslD9X4jRRDo0nMJhg==',
+                        'MobileApp': 'AppTest',
+                        'MobileOS': 'ETC',
+                        'keyword': keyword
+                    }
+                }).done(function(data){
+                    // 데이터 가져와서 title 리스트로 출력
+                    const items = $(data).find('item');
+                    let rs = [];
+
+                    $.each(items, function(index, item){
+                        // this = item
+                        const title = $(this).find('title').text();
+                        rs.push(`<li class="list-group-item">${title}</li>`);
+                    });
+                    $('.col-8').html(`<ul class="list-group">${rs.join('')}</ul>`);
+                });
+            }
+        })
+
+        $('.btn').click(function(){
+
+        })
+    </script>
+</body>
+</html>
