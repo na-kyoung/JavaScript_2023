@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>Kakao 지도 시작하기</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+<style>
+body {margin: 0}    
+#map {
+    height: 100vh; /* viewport height */
+}
+#map > div.breadcrumb {
+    width: 100vw;
+    height: 2.4rem;
+    line-height: 2.4rem;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    position: absolute;
+    z-index: 999;
+    text-indent: 1rem; /* 글자 들여쓰기 */
+}
+</style>
+</head>
+<body>
+    <div id="map">
+        <div class="breadcrumb"> 지도 움직이면 중심 주소 표시 </div>
+    </div>
+
+<!-- api key + libraries  -->
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7ea4a41a12cd70a9a5b18fa5a5b6597a&libraries=services"></script>
+<script>
+const container = document.querySelector('#map');
+let options = {
+    center: new kakao.maps.LatLng(37.558450, 127.048876),
+    level: 3
+};
+
+const map = new kakao.maps.Map(container, options);
+
+// 원 생성
+const circle = new kakao.maps.Circle({
+    map: map,
+    center : map.getCenter(),
+    radius: 50,
+    strokeWeight: 5,
+    strokeColor: '#75B8FA',
+    strokeOpacity: 1,
+    strokeStyle: 'solid',
+    fillColor: '#CFE7FF',
+    fillOpacity: 0.6
+}); 
+
+// 원 표시
+circle.setMap(map); 
+
+
+// 좌표-주소 변환
+// 객체 생성
+const geocoder = new kakao.maps.services.Geocoder();
+
+// 지도 중심 좌표 - 주소 출력 함수 호출
+searchAddrFromCoords(map.getCenter(), displayCenterInfo);
+
+// idle - 중심 좌표나 확대 수준이 변경되면 발생, 애니메이션 도중에 발생 X
+kakao.maps.event.addListener(map, 'idle', function() {
+    let mapCenter = map.getCenter(); 
+    searchAddrFromCoords(mapCenter, displayCenterInfo);
+    circle.setPosition(mapCenter); // 원 표시
+});
+
+function searchAddrFromCoords(coords, callback) {
+    geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);         
+}
+
+// 지도 중심 좌표 - 주소 출력
+function displayCenterInfo(result, status) {
+    console.log(result, status);
+    if (status === kakao.maps.services.Status.OK) {
+       const breakcrumb = document.querySelector('#map > .breadcrumb');
+        for(var i = 0; i < result.length; i++) {
+            // 행정동 region_type = 'H'
+            if (result[i].region_type === 'H') {
+                // infoDiv.innerHTML = result[i].address_name;
+                // console.log(result[i].address_name);
+                // 브레드크럼에 주소명 출력
+                breakcrumb.innerHTML = result[i].address_name;
+                break;
+            }
+        }
+    }    
+}
+</script>
+</body>
+</html>
